@@ -11,9 +11,10 @@ public class Albaran extends Archivo {
     private String codigo_albaran;// debe ser de 4 dígitos
 
 
-    public Albaran(long numero_pedido, LocalDate fecha, String num_expediente,Producto producto, String codigo_albaran, String observacion) throws NotValidCodeException {
+    public Albaran(long numero_pedido, int codigo_albaran, LocalDate fecha, String num_expediente,Producto producto, String observacion) throws NotValidCodeException {
         super(numero_pedido, fecha, num_expediente, producto, observacion);
-        this.codigo_albaran = "A2024-"+codigo_albaran;
+        int ano=fecha.getYear();
+        this.codigo_albaran = "A"+ano+"-"+codigo_albaran;
     }
 
     /**
@@ -22,9 +23,10 @@ public class Albaran extends Archivo {
      * @param fecha_entrega fecha de entrega
      * @param producto catéter
      */
-    public Albaran(long numero_pedido, LocalDate fecha_entrega,String num_expediente, Producto producto, String observacion){
-        super(numero_pedido,fecha_entrega,num_expediente,producto, observacion);
+    public Albaran(long numero_pedido, LocalDate fecha_entrega, Producto producto){
+        super(numero_pedido,fecha_entrega,"",producto,"");
     }
+
 
     @Override
     public String toString() {
@@ -40,7 +42,7 @@ public class Albaran extends Archivo {
         return codigo_albaran;
     }
 
-    public void setCodigo_albaran(int codigo_albaran) {
-        this.codigo_albaran = "A2024-"+codigo_albaran;
+    public void setCodigo_albaran(int codigo_albaran, int ano) {
+        this.codigo_albaran = "A"+ano+"-"+codigo_albaran;
     }
 }

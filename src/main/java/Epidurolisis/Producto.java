@@ -2,7 +2,10 @@ package Epidurolisis;
 
 import Epidurolisis.Caracteristicas_Producto.Hospital.Hospital;
 import Epidurolisis.Caracteristicas_Producto.TipoProducto;
+import IOInterface.Utils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 public class Producto {
@@ -25,6 +28,7 @@ public class Producto {
      * @param unidades
      */
     public Producto(Hospital hospital, int unidades) {
+        //TODO modificar en caso de cambio de lote o de fecha de caducidad
         this.tipo = TipoProducto.LUMBAR;
         if(this.tipo==TipoProducto.LUMBAR){
             this.lote=20231002;
@@ -46,11 +50,12 @@ public class Producto {
      * @param precio_producto
      */
     public Producto(Hospital hospital, int unidades, float precio_producto){
+
         this.tipo=TipoProducto.LUMBAR;
         this.unidades=unidades;
         this.precio_producto=precio_producto;
-        this.precio_IVA= (float) (0.21* precio_producto);
-        this.precio_total=this.calcularPrecioTotal();
+        this.precio_IVA= Utils.redondear((float) (0.21* precio_producto));
+        this.precio_total=Utils.redondear(this.calcularPrecioTotal());
     }
 
     @Override
@@ -63,18 +68,17 @@ public class Producto {
                 '}';
     }
 
-    public String toPDF(){
-        return unidades+" "+precio_producto+" "+precio_IVA+" "+precio_total;
-    }
+
 
     /**
      * calcularPrecioTotal
      * calcula el coste total
-     * @return
+     * @return precio total
      */
     public float calcularPrecioTotal(){
         return this.precio_producto+this.precio_IVA;
     }
+
 
     public int getUnidades() {
         return unidades;
@@ -82,6 +86,14 @@ public class Producto {
 
     public float getPrecio_producto() {
         return precio_producto;
+    }
+
+    public long getLote() {
+        return lote;
+    }
+
+    public LocalDate getCaducidad() {
+        return caducidad;
     }
 
     public float getPrecio_IVA() {

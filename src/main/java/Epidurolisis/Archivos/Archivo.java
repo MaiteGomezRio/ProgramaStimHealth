@@ -4,6 +4,8 @@ package Epidurolisis.Archivos;
 import Epidurolisis.Producto;
 
 import java.time.LocalDate;
+import java.time.Month;
+
 
 public class Archivo {
 
@@ -41,6 +43,75 @@ public class Archivo {
                 ", producto=" + producto.toString() +
                 '}';
     }
+
+    /**
+     * obtenerTrimestre se utiliza para seleccionar la carpeta en laa que guardar el archivo generado dependiendo
+     * del mes en el que se genere
+     * @param mes
+     * @return nombre de la carpeta en la que se va a guardar
+     */
+    public static String obtenerTrimestre(Month mes){
+
+        switch (mes) {
+            case JANUARY:
+            case FEBRUARY:
+            case MARCH:
+                return "1T"; // Primer trimestre
+            case APRIL:
+            case MAY:
+            case JUNE:
+                return "2T"; // Segundo trimestre
+            case JULY:
+            case AUGUST:
+            case SEPTEMBER:
+                return "3T"; // Tercer trimestre
+            case OCTOBER:
+            case NOVEMBER:
+            case DECEMBER:
+                return "4T"; // Cuarto trimestre
+            default:
+                throw new IllegalArgumentException("Mes inválido");
+        }
+    }
+
+    /**
+     * obtenerMes se utiliza para seleccionar la carpeta en laa que guardar el archivo generado dependiendo
+     * del mes en el que se genere
+     * @param mes
+     * @return nombre de la carpeta en la que se va a guardar
+     */
+    public static String obtenerMesCarpeta(Month mes, int ano){
+
+        switch (mes) {
+            case JANUARY:
+                return "ENERO "+ano;
+            case FEBRUARY:
+                return "FEBRERO "+ano;
+            case MARCH:
+                return "MARZO "+ano;
+            case APRIL:
+                return "ABRIL "+ano;
+            case MAY:
+                return "MAYO "+ano;
+            case JUNE:
+                return "JUNIO "+ano;
+            case JULY:
+                return "JULIO "+ano;
+            case AUGUST:
+                return "AGOSTO "+ano;
+            case SEPTEMBER:
+                return "SEPTIEMBRE "+ano;
+            case OCTOBER:
+                return "OCTUBRE "+ano;
+            case NOVEMBER:
+                return "NOVIEMBRE "+ano;
+            case DECEMBER:
+                return "DICIEMBRE "+ano;
+            default:
+                throw new IllegalArgumentException("Mes inválido");
+        }
+    }
+
 
 
     public long getNumero_pedido() {

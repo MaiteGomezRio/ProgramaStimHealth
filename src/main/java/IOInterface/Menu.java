@@ -5,10 +5,9 @@ public class Menu {
     public static void main(String[] args) {
 
         System.out.println("---------------------- BIENVENIDO AL PROGRAMA DE  ALBARANES Y FACTURAS ----------------------");
-        //Por favor introduzca (copie y pegue) la ruta en la que se encuentra la carpeta con el programa en su ordenador
-        String rutaAcarpeta="C:\\Users\\maria\\OneDrive - STIMHEALTH MEDICAL SL\\StimHealth\\02 Contabilidad";
-        
-
+        // TODO Por favor introduzca (copie y pegue) la ruta en la que se encuentra la carpeta con el programa en su ordenador
+        //String rutaAcarpeta="C:\\Users\\maria\\OneDrive - STIMHEALTH MEDICAL SL\\StimHealth\\02 Contabilidad";
+        String rutaAcarpeta="C:\\Users\\maipa\\OneDrive - Fundación Universitaria San Pablo CEU\\StimHealth\\02 Contabilidad";
         while(true) {
             int opcion = MenuPrincipal();
             switch (opcion) {

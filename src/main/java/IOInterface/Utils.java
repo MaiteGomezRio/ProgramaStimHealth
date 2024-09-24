@@ -3,30 +3,51 @@ package IOInterface;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
+
 
 public class Utils {
-    public static long generarNumAleatorio() {
-        Random random = new Random();
-        long numeroAleatorio = 1_000_000_000L + (long) (random.nextDouble() * 9_000_000_000L);
-        return numeroAleatorio;
+
+    /**
+     * Función que redondea los precios a 2 decimales
+     * @param valor
+     * @return
+     */
+    public static float redondear(float valor) {
+        BigDecimal bd = new BigDecimal(Float.toString(valor));
+        bd = bd.setScale(2, RoundingMode.HALF_UP); // Redondea hacia arriba si el decimal es >= 0.5
+        return bd.floatValue();
     }
 
-    public static int generarNumAleatorio2(){
-        return ThreadLocalRandom.current().nextInt(0000,10000);
+    /**
+     * obtenerCodigoNumerico
+     * Divide el código de lafactura/alabarán en parte de caracteres y números
+     * @param cadena
+     * @return
+     */
+    public static int obtenerCodigoNumerico(String cadena) {
+        // Divide la cadena en dos partes usando el guión como separador
+        String[] partes = cadena.split("-");
+
+        // Si el formato es correcto, la segunda parte será el código numérico
+        if (partes.length == 2) {
+            try {
+                // Convertir la segunda parte a un entero
+                return Integer.parseInt(partes[1]);
+            } catch (NumberFormatException e) {
+                System.out.println("Error: El código no es un número válido.");
+            }
+        } else {
+            System.out.println("Error: La cadena no sigue el formato esperado.");
+        }
+        return -1;  // Devuelve un valor de error en caso de fallo
     }
 
-
-    public static float generarNumAleatorioWithBound(float origin,float bound){
-        Random random = new Random();
-        float numero = random.nextFloat(origin,bound);
-        return numero;
-    }
 
     public static int leerEntero() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -62,24 +83,6 @@ public class Utils {
         }
     }
 
-    public static float leerFloat() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        float floatLeido;
-        String stringLeida;
-        while (true) {
-            try {
-                stringLeida = br.readLine();
-                floatLeido = Float.parseFloat(stringLeida);
-                return floatLeido;
-            } catch (IOException ioe) {
-                System.out.println("Error al leer de teclado");
-            }
-            catch (NumberFormatException nfe)
-            {
-                System.out.println("Disculpe, debe introducir un numero real");
-            }
-        }
-    }
 
     public static long leerLong() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -88,6 +91,12 @@ public class Utils {
         while (true) {
             try {
                 stringLeida = br.readLine();
+                // Si el usuario presiona Enter sin introducir nada, asignamos un valor predeterminado
+                if (stringLeida.isEmpty()) {
+                    longLeido = 0L; // Valor predeterminado
+                    return longLeido;
+                }
+
                 longLeido = Long.parseLong(stringLeida);
                 return longLeido;
             } catch (IOException ioe) {
@@ -99,6 +108,19 @@ public class Utils {
             }
         }
     }
+
+    /**
+     * comprobarCero introduce un carácter vacío en caso de que el usuario no introduzca nada
+     * @param num_pedido
+     * @return
+     */
+    public static String comprobarCero(long num_pedido){
+        if(num_pedido==0){
+            return "";
+        }else{
+            return String.valueOf(num_pedido);
+        }
+    }
     public static LocalDate leerFecha() {
         Scanner scanner = new Scanner(System.in);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -107,6 +129,11 @@ public class Utils {
         while (fecha == null) {
             System.out.print("Introduce una fecha en formato dd/MM/yyyy: ");
             String fechaStr = scanner.nextLine();
+            if (fechaStr.isEmpty()) {
+                System.out.println("No has introducido nada. Por favor, intenta de nuevo.");
+                continue;  // Vuelve a pedir la fecha
+            }
+
             try {
                 fecha = LocalDate.parse(fechaStr, formatter);
             } catch (DateTimeParseException e) {

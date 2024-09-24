@@ -9,9 +9,11 @@ import Excepciones.NotValidCodeException;
 import Guardador.Guardador;
 import Guardador.LecturaPDF;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Month;
 
 public class IOArchivos {
 
@@ -30,12 +32,15 @@ public class IOArchivos {
             Hospital hospital=seleccionarHospital(opcion, "Albaranes",rutaAcarpeta);
 
             System.out.println("Introduzca el número de pedido: ");
+            System.out.println("Pulse ENTER si no desea introducir nada.");
             long num_pedido=Utils.leerLong();
 
             System.out.println("Introduzca la fecha de realización del albarán (dia/mes/ano) ");
             LocalDate fecha=Utils.leerFecha();
 
+
             System.out.println("Introduzca el número de expediente: ");
+            System.out.println("Pulse la tecla de espacio si no desea introducir nada.");
             String num_expediente=Utils.leerString();
 
             System.out.println("¿Desea realizar alguna observación?");
@@ -67,9 +72,13 @@ public class IOArchivos {
             if(cateter_cervical==1){//se guarda solo la primera parte
 
                 try {
+                    Month mes=fecha.getMonth();
                     guardador.Albaran2PDF_special(albaran,rutaAcarpeta,hospital);
-                    String rutaAarchivo=rutaAcarpeta+"\\Archivos\\"+guardador.getNombre_Archivo();
-                    anadirOtroProducto(producto,hospital,rutaAarchivo);
+                    String trimestre=Archivo.obtenerTrimestre(mes);
+                    String ano= String.valueOf(fecha.getYear());
+                    //ruta a contabilidad+año+"AÑO"+FACTURAS EMITIDAS +año+trimestre+nombre_archivo
+                    String rutaAarchivo=rutaAcarpeta+"\\"+ano+" AÑO\\FACTURAS EMITIDAS "+ano+"\\"+trimestre+"\\"+guardador.getNombre_Archivo();
+                    anadirOtroProducto(producto,hospital,rutaAarchivo,guardador);
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -79,6 +88,9 @@ public class IOArchivos {
                 try {
                     guardador.Albaran2PDF(albaran,rutaAcarpeta,hospital);
                     System.out.println("Albarán generado con éxito.");
+                    File archivo=new File(guardador.getOutputFile());
+                    Desktop desktop=Desktop.getDesktop();
+                    desktop.open(archivo);
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -130,9 +142,13 @@ public class IOArchivos {
             if(cateter_cervical==1){//se guarda solo la primera parte
 
                 try {
+                    Month mes=fecha.getMonth();
                     guardador.Factura2PDF_special(factura,rutaAcarpeta,hospital);
-                    String rutaAarchivo=rutaAcarpeta+"\\Archivos\\"+guardador.getNombre_Archivo();
-                    anadirOtroProducto(producto,hospital,rutaAarchivo);
+                    String trimestre=Archivo.obtenerTrimestre(mes);
+                    String ano= String.valueOf(fecha.getYear());
+                    //ruta a contabilidad+año+"AÑO"+FACTURAS EMITIDAS +año+trimestre+nombre_archivo
+                    String rutaAarchivo=rutaAcarpeta+"\\"+ano+" AÑO\\FACTURAS EMITIDAS "+ano+"\\"+trimestre+"\\"+guardador.getNombre_Archivo();
+                    anadirOtroProducto(producto,hospital,rutaAarchivo,guardador);
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -142,6 +158,9 @@ public class IOArchivos {
                 try {
                     guardador.Factura2PDF(factura,rutaAcarpeta,hospital);
                     System.out.println("Factura creada y guardada con éxito.");
+                    File archivo=new File(guardador.getOutputFile());
+                    Desktop desktop=Desktop.getDesktop();
+                    desktop.open(archivo);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -162,12 +181,14 @@ public class IOArchivos {
         Hospital hospital=seleccionarHospital(opcion, "Albaranes", rutaAcarpeta);
 
         System.out.println("Introduzca el número de pedido: ");
+        System.out.println("Pulse ENTER si no desea introducir nada.");
         long num_pedido=Utils.leerLong();
 
         System.out.println("Introduzca la fecha de realización del archivo (dia/mes/ano) ");
         LocalDate fecha=Utils.leerFecha();
 
         System.out.println("Introduzca el número de expediente: ");
+        System.out.println("Pulse la tecla de espacio si no desea introducir nada.");
         String num_expediente=Utils.leerString();
 
 
@@ -203,20 +224,30 @@ public class IOArchivos {
         if(cateter_cervical==1){//se guarda solo la primera parte
             try {
                 guardador.Albaran2PDF_special(albaran,rutaAcarpeta,hospital);
-                String rutaAarchivo=rutaAcarpeta+"\\Archivos\\"+guardador.getNombre_Archivo();
-                anadirOtroProducto(producto,hospital,rutaAarchivo);
+                Month mes=fecha.getMonth();
+                String trimestre=Archivo.obtenerTrimestre(mes);
+                String ano= String.valueOf(fecha.getYear());
+                //ruta a contabilidad+año+"AÑO"+FACTURAS EMITIDAS +año+trimestre+nombre_archivo
+                String rutaAarchivo=rutaAcarpeta+"\\"+ano+" AÑO\\FACTURAS EMITIDAS "+ano+"\\"+trimestre+"\\"+guardador.getNombre_Archivo();
+                anadirOtroProducto(producto,hospital,rutaAarchivo, guardador);
                 System.out.println("--------------------------------------------------------------------");
 
                 System.out.println("FACTURA: ");
                 hospital=seleccionarHospital(opcion, "Facturas", rutaAcarpeta);
                 //el código será el mismo que el del albarán
-                Factura factura =new Factura(a.getNumero_pedido(),a.getFecha_entrega(),a.getNumero_expediente(),a.getProducto(),albaran.getCodigo_albaran(), albaran.getObservacion());
+                Factura factura =new Factura(a.getNumero_pedido(),albaran.getCodigo_albaran(), a.getFecha_entrega(),a.getNumero_expediente(),a.getProducto(), albaran.getObservacion());
                 Guardador guardador2=new Guardador(factura, hospital);
                 guardador2.Factura2PDF_special(factura,rutaAcarpeta,hospital);
 
-                String rutaAarchivo2=rutaAcarpeta+"\\Archivos\\"+guardador2.getNombre_Archivo();
-                anadirOtroProducto(producto,hospital,rutaAarchivo2);
+                String trimestre2=Archivo.obtenerTrimestre(mes);
+                String ano2= String.valueOf(fecha.getYear());
+                //ruta a contabilidad+año+"AÑO"+FACTURAS EMITIDAS +año+trimestre+nombre_archivo
+                String rutaAarchivo2=rutaAcarpeta+"\\"+ano2+" AÑO\\FACTURAS EMITIDAS "+ano2+"\\"+trimestre2+"\\"+guardador2.getNombre_Archivo();
+                anadirOtroProducto(producto,hospital,rutaAarchivo2,guardador2);
                 System.out.println("Factura creada y guardada con éxito.");
+                File archivo=new File(guardador.getOutputFile());
+                Desktop desktop=Desktop.getDesktop();
+                desktop.open(archivo);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -236,7 +267,9 @@ public class IOArchivos {
                 Guardador guardador2=new Guardador(factura, hospital);
                 guardador2.Factura2PDF(factura,rutaAcarpeta,hospital);
                 System.out.println("Factura creada y guardada con éxito.");
-
+                File archivo=new File(guardador.getOutputFile());
+                Desktop desktop=Desktop.getDesktop();
+                desktop.open(archivo);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -248,6 +281,9 @@ public class IOArchivos {
         Guardador guardador1=new Guardador(albaran, hospital);
         try {
             guardador1.Albaran2PDF(albaran,rutaAcarpeta,hospital);
+            File archivo=new File(guardador.getOutputFile());
+            Desktop desktop=Desktop.getDesktop();
+            desktop.open(archivo);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -255,13 +291,13 @@ public class IOArchivos {
 
     }
 
-    public static void anadirOtroProducto(Producto producto,Hospital hospital, String rutaArchivo){
+    public static void anadirOtroProducto(Producto producto,Hospital hospital, String rutaArchivo, Guardador g){
 
         System.out.println("Cuántas unidades del producto desea? ");
         int unidades=Utils.leerEntero();
 
         try {
-            Guardador.AnadirCateterCervical(producto,hospital,rutaArchivo,unidades);//escribe en el pdf que se va a crear el otro cateter con sus datos
+            g.AnadirCateterCervical(producto,hospital,rutaArchivo,unidades);//escribe en el pdf que se va a crear el otro cateter con sus datos
         } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (InterruptedException e) {
@@ -277,11 +313,11 @@ public class IOArchivos {
      * @return archivo de tipo albaran
      */
     public static Albaran leerInfoAlbaran(Archivo a) {
-        System.out.println("Introduzca el codigo del albaran: ");
-        String codigo=Utils.leerString();
+        System.out.println("Introduzca el código del albarán (A2024-CÓDIGO): ");
+        int codigo=Utils.leerEntero();
 
         try {
-            return new Albaran(a.getNumero_pedido(),a.getFecha_entrega(),a.getNumero_expediente(),a.getProducto(),codigo, a.getObservacion());
+            return new Albaran(a.getNumero_pedido(),codigo,a.getFecha_entrega(),a.getNumero_expediente(),a.getProducto(), a.getObservacion());
         } catch (NotValidCodeException e) {
             throw new RuntimeException(e);
         }
@@ -294,10 +330,10 @@ public class IOArchivos {
      * @return archivo de tipo factura
      */
     public static Factura leerInfoFactura(Archivo a) {
-        System.out.println("Introduzca el codigo de la factura: ");
-        String codigo=Utils.leerString();
+        System.out.println("Introduzca el codigo de la factura(FRA2024-CÓDIGO): ");
+        int codigo=Utils.leerEntero();
 
-        return new Factura(a.getNumero_pedido(),a.getFecha_entrega(),a.getNumero_expediente(),a.getProducto(),codigo);
+        return new Factura(a.getNumero_pedido(),codigo,a.getFecha_entrega(),a.getNumero_expediente(),a.getProducto(), a.getObservacion());
     }
 
 
@@ -407,18 +443,29 @@ public class IOArchivos {
     //CASE 4 y 5-MODIFICAR ARCHIVOS
 
     public static void modificarAlbaran(String rutaAcarpeta){
+
+        System.out.println("RECUERDE QUE TODOS LOS ARCHIVOS DEBEN ESTAR CERRADOS PARA PODER REALIZAR ALGÚN TIPO DE MODIFICACIÓN.");
         System.out.println("Qué albaran desea modificar. Introduzca su código: ");
         int codigo=Utils.leerEntero();
+
+        System.out.println("Introduzca la fecha en la que fue creado el albarán: (año/mes/dia)");
+        System.out.println("Año: ");
+        int ano=Utils.leerEntero();
+        System.out.println("Mes: ");
+        int num_mes=Utils.leerEntero();
+        Month mes= Month.of(num_mes);
 
         System.out.println("Seleccione el hospital del que desea cambiar el albarán.");
         int opcion1=IOArchivos.mostrarListaHospitales();
         Hospital hospital=seleccionarHospital(opcion1,"Albaranes",rutaAcarpeta);
 
-        String nombre_albaran="A2024-" + codigo + "_" + hospital.getNombre()+".pdf";
+        String nombre_albaran="A"+ano+"-" + codigo + "_" + hospital.getNombre()+".pdf";
 
-        String rutaArchivo=rutaAcarpeta+"\\Archivos\\"+nombre_albaran;
+        String trimestre=Archivo.obtenerTrimestre(mes);
+        //ruta a contabilidad+año+"AÑO"+FACTURAS EMITIDAS +año+trimestre+nombre_archivo
+        String rutaArchivo=rutaAcarpeta+"\\"+ano+" AÑO\\FACTURAS EMITIDAS "+ano+"\\"+trimestre+"\\"+nombre_albaran;
         Albaran albaran= LecturaPDF.AlbaranFromPDF(rutaArchivo, hospital);
-        albaran.setCodigo_albaran(codigo);
+        albaran.setCodigo_albaran(codigo, ano);
 
         System.out.println("Qué dato desea modificar? ");
         System.out.println("------------------------------------------------------");
@@ -491,10 +538,14 @@ public class IOArchivos {
                 Guardador guardador=new Guardador(albaran,hospital);
                 try {
                     guardador.Albaran2PDF(albaran,rutaAcarpeta,hospital);
+                    System.out.println("El archivo ha sido modificado exitosamente.");
+                    File file=new File(guardador.getOutputFile());
+                    Desktop desktop=Desktop.getDesktop();
+                    desktop.open(file);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println("El archivo ha sido modificado exitosamente.");
+
             } else {
                 System.out.println("No se pudo modificar el archivo.");
             }
@@ -506,20 +557,28 @@ public class IOArchivos {
     }
     public static void modificarFactura(String rutaAcarpeta){
 
-
+        System.out.println("RECUERDE QUE TODOS LOS ARCHIVOS DEBEN ESTAR CERRADOS PARA PODER REALIZAR ALGÚN TIPO DE MODIFICACIÓN.");
         System.out.println("Qué factura desea modificar. Introduzca su código: ");
         int codigo=Utils.leerEntero();
+
+        System.out.println("Introduzca la fecha en la que fue creado el albarán: (año/mes/dia)");
+        System.out.println("Año: ");
+        int ano=Utils.leerEntero();
+        System.out.println("Mes: ");
+        int num_mes=Utils.leerEntero();
+        Month mes= Month.of(num_mes);
+        String trimestre=Archivo.obtenerTrimestre(mes);
 
         System.out.println("Seleccione el hospital del que desea cambiar la factura.");
         int opcion1=IOArchivos.mostrarListaHospitales();
         Hospital hospital=seleccionarHospital(opcion1,"Facturas",rutaAcarpeta);
-        String nombre_factura="FRA2024-" + codigo + "_" + hospital.getNombre()+".pdf";
 
-        String rutaArchivo=rutaAcarpeta+"\\Archivos\\"+nombre_factura;
+        String nombre_factura="FRA"+ano+"-" + codigo + "_" + hospital.getNombre()+".pdf";
+        String rutaArchivo=rutaAcarpeta+"\\"+ano+" AÑO\\FACTURAS EMITIDAS "+ano+"\\"+trimestre+"\\"+nombre_factura;
 
         Factura factura= LecturaPDF.FacturaFromPDF(rutaArchivo,hospital);
 
-        factura.setCodigo_factura(codigo);
+        factura.setCodigo_factura(codigo, ano);
         System.out.println("Qué dato desea modificar? ");
         System.out.println("------------------------------------------------------");
         System.out.println("\t1.Número de pedido");
@@ -592,6 +651,9 @@ public class IOArchivos {
                 try {
                     guardador.Factura2PDF(factura,rutaAcarpeta,hospital);
                     System.out.println("El archivo ha sido modificado exitosamente.");
+                    File file=new File(guardador.getOutputFile());
+                    Desktop desktop2=Desktop.getDesktop();
+                    desktop2.open(file);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
