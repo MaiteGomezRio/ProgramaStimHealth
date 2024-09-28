@@ -27,13 +27,14 @@ public class Producto {
      * @param hospital
      * @param unidades
      */
-    public Producto(Hospital hospital, int unidades) {
+    public Producto(Hospital hospital, int unidades, TipoProducto tipo) {
         //TODO modificar en caso de cambio de lote o de fecha de caducidad
-        this.tipo = TipoProducto.LUMBAR;
-        if(this.tipo==TipoProducto.LUMBAR){
+
+        if(tipo==TipoProducto.LUMBAR){
             this.lote=20231002;
             this.caducidad=LocalDate.of(2026,10,01);
-        }else{
+        }
+        if(tipo==TipoProducto.CERVICAL){
             this.lote=20230102;
             this.caducidad=LocalDate.of(2026,01,01);
         }
@@ -116,11 +117,5 @@ public class Producto {
         this.precio_IVA = precio_IVA;
     }
 
-    public void setPrecio_total(float precio_total) {
-        this.precio_total = precio_total;
-    }
 
-    public void setTipo(TipoProducto tipo) {
-        this.tipo = tipo;
-    }
 }

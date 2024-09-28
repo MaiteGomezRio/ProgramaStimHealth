@@ -16,7 +16,7 @@ public class Menu {
                     //genera albaran
                     //tipo=1=el tipo es porque se utiliza una misma funcion para el archivo de tipo "factura" y tipo "alabarán"
                     //para poder diferenciarlas a la hora de pedir datos
-                    IOArchivos.crearArchivo(1, rutaAcarpeta);
+                    IOArchivos.crearArchivo(1,rutaAcarpeta);
                     break;
                 case 2:
                     //generar factura

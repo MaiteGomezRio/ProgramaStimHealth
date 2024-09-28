@@ -23,8 +23,8 @@ public class Albaran extends Archivo {
      * @param fecha_entrega fecha de entrega
      * @param producto catéter
      */
-    public Albaran(long numero_pedido, LocalDate fecha_entrega, Producto producto){
-        super(numero_pedido,fecha_entrega,"",producto,"");
+    public Albaran(long numero_pedido, String num_expediente,LocalDate fecha_entrega, Producto producto){
+        super(numero_pedido,fecha_entrega,num_expediente,producto,"");
     }
 
 
@@ -45,4 +45,5 @@ public class Albaran extends Archivo {
     public void setCodigo_albaran(int codigo_albaran, int ano) {
         this.codigo_albaran = "A"+ano+"-"+codigo_albaran;
     }
+
 }

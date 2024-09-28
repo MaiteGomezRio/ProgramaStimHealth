@@ -44,7 +44,7 @@ public class Hospital {
      * LISTA DE MÉTODOS CON TODOS LOS HOSPITALES DEFINIDOS POR EL PROGRAMA
      */
     public void hospital_CEMTRO(){
-        this.nombre="CENTRO EUROPEO MÉDICO TRAUMATOLÓGICO. SA.";
+        this.nombre="CENTRO EUROPEO MÉDICO TRAUMATOLÓGICO. SA";
         this.plantilla=this.rutaAcarpeta+"\\PlantillasHospitales\\"+this.tipoArchivo+"\\Plantilla_Cemtro.pdf";
         this.precio=88.0f;
         this.facturaA="CEMTRO";
@@ -63,38 +63,38 @@ public class Hospital {
         this.facturaA="Clinico San Carlos";
     }
     public void hospital_Cun(){
-        this.nombre="CLÍNICA UNIVERSIDAD NAVARRA.";
+        this.nombre="CLÍNICA UNIVERSIDAD NAVARRA";
         this.plantilla=this.rutaAcarpeta+"\\PlantillasHospitales\\"+this.tipoArchivo+"\\Plantilla_Cun.pdf";
         this.precio=94.50f;
         this.facturaA="Cun";
     }
     public void hospital_HM_Malaga(){
-        this.nombre="HOSPITAL HM MÁLAGA.";
+        this.nombre="HOSPITAL HM MÁLAGA";
         this.plantilla=this.rutaAcarpeta+"\\PlantillasHospitales\\"+this.tipoArchivo+"\\Plantilla_HMMalaga.pdf";
         this.precio=94.50f;
         this.facturaA="Desarrollos asistenciales sur S.L";
     }
 
     public void hospital_HM_PuertaDelSur(){
-        this.nombre="HOSPITAL UNIV. HM PUERTA DEL SUR ";
+        this.nombre="HOSPITAL UNIV. HM PUERTA DEL SUR";
         this.plantilla=this.rutaAcarpeta+"\\PlantillasHospitales\\"+this.tipoArchivo+"\\Plantilla_HM_puertaDelSur.pdf";
         this.precio=94.50f;
         this.facturaA="";
     }
     public void hospital_Imd(){
-        this.nombre="INSTITUTO MADRILEÑO DEL DOLOR S.L. (RUIZ HUERTA SERRANO ASOCIADOS) ";
+        this.nombre="INSTITUTO MADRILEÑO DEL DOLOR S.L. (RUIZ HUERTA SERRANO ASOCIADOS)";
         this.plantilla=this.rutaAcarpeta+"\\PlantillasHospitales\\"+this.tipoArchivo+"\\Plantilla_Imd.pdf";
         this.precio=88.0f;
         this.facturaA="Ruiz Huerta Asociados";
     }
     public void hospital_InfantaElena(){
-        this.nombre="HOSPITAL INFANTA ELENA.";
+        this.nombre="HOSPITAL INFANTA ELENA";
         this.plantilla=this.rutaAcarpeta+"\\PlantillasHospitales\\"+this.tipoArchivo+"\\Plantilla_InfantaElena.pdf";
         this.precio=84.0f;
         this.facturaA="Servicios, personas, y salud";
     }
     public void hospital_Jantromed(){
-        this.nombre="JANTROMED DISTRIBUCIONES QUIRÚRGICAS S.L ";
+        this.nombre="JANTROMED DISTRIBUCIONES QUIRÚRGICAS S.L";
         this.plantilla=this.rutaAcarpeta+"\\PlantillasHospitales\\"+this.tipoArchivo+"\\Plantilla_Jantromed.pdf";
         this.precio=88.0f;
         this.facturaA="Jantromed";
@@ -148,7 +148,7 @@ public class Hospital {
         this.facturaA="CENTRO MEDICOS SALUS CANARIAS SA";
     }
     public void hospital_SeveroOchoa(){
-        this.nombre="HOSPITAL UNIVERSITARIO SEVERO OCHOA.";
+        this.nombre="HOSPITAL UNIVERSITARIO SEVERO OCHOA";
         this.plantilla=this.rutaAcarpeta+"\\PlantillasHospitales\\"+this.tipoArchivo+"\\Plantilla_SeveroOchoa.pdf";
         this.precio=94.50f;
         this.facturaA="Severo Ochoa";

@@ -145,4 +145,8 @@ public class Archivo {
     public void setNumero_pedido(long numero_pedido) {
         this.numero_pedido = numero_pedido;
     }
+
+    public void setNumero_expediente(String numero_expediente) {
+        this.numero_expediente = numero_expediente;
+    }
 }
