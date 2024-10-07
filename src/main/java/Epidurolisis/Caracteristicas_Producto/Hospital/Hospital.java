@@ -76,7 +76,7 @@ public class Hospital {
     }
 
     public void hospital_HM_PuertaDelSur(){
-        this.nombre="HOSPITAL UNIV. HM PUERTA DEL SUR";
+        this.nombre="HOSPITAL UNIVERSITARIO HM PUERTA DEL SUR. HM HOSPITALES 1989 SA";
         this.plantilla=this.rutaAcarpeta+"\\PlantillasHospitales\\"+this.tipoArchivo+"\\Plantilla_HM_puertaDelSur.pdf";
         this.precio=94.50f;
         this.facturaA="";
@@ -254,6 +254,7 @@ public class Hospital {
     }
 
     public String getPlantilla() {
+    	
         return plantilla;
     }
 
@@ -264,8 +265,29 @@ public class Hospital {
     public void setPlantilla(String plantilla) {
         this.plantilla = plantilla;
     }
+    
 
-    public void setTipoArchivo(String tipoArchivo) {
+    public String getTipoArchivo() {
+		return tipoArchivo;
+	}
+
+
+	public void setRutaAcarpeta(String rutaAcarpeta) {
+		this.rutaAcarpeta = rutaAcarpeta;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public void setFacturaA(String facturaA) {
+		this.facturaA = facturaA;
+	}
+
+
+	public void setTipoArchivo(String tipoArchivo) {
         this.tipoArchivo = tipoArchivo;
     }
 

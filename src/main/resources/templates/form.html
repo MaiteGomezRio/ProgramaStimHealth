@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Generar PDF</title>
+</head>
+<body>
+    <h1>Formulario para Generar PDF</h1>
+    <form action="#" th:action="@{/generate}" method="post">
+        <label for="data">Introduce los datos:</label>
+        <input type="text" id="data" name="data" required>
+        <button type="submit">Generar PDF</button>
+    </form>
+</body>
+</html>

@@ -42,7 +42,7 @@ public class Guardador {
      */
 
     public void Albaran2PDF(Albaran albaran, String rutaAcarpeta, Hospital hospital) throws IOException {
-
+    	
         String templateFile =hospital.getPlantilla();
         LocalDate fecha=albaran.getFecha();
         Month mes=fecha.getMonth();
@@ -374,7 +374,7 @@ public class Guardador {
         //11.IMP IVA-> precio con el iva
         float cx_impIVA=convertirCoordenada(105.4f);
         float cy_impIVA=convertirCoordenada(78.5f);
-        Paragraph p11=new Paragraph(iva+" €");
+        Paragraph p11=new Paragraph(Utils.redondear(iva)+" €");
         p11.setFontSize(9);
         p11.setFixedPosition(cx_impIVA,cy_impIVA,100f);
         document.add(p11);
@@ -402,7 +402,6 @@ public class Guardador {
      */
     public void Albaran2PDF_special(Albaran albaran, String rutaAcarpeta, Hospital hospital, int uds_cervical) throws IOException {
         String templateFile =hospital.getPlantilla();
-
         LocalDate fecha=albaran.getFecha();
         Month mes=fecha.getMonth();
         String trimestre=Archivo.obtenerTrimestre(mes);
@@ -665,7 +664,7 @@ public class Guardador {
      * @throws IOException excepción
      */
     public void Factura2PDF_special(Factura factura, String rutaAcarpeta, Hospital hospital, int uds_cervical) throws IOException {
-
+    	hospital.setTipoArchivo("Facturas");
         String templateFile =hospital.getPlantilla();
         LocalDate fecha=factura.getFecha();
         Month mes=fecha.getMonth();

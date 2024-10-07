@@ -4,8 +4,7 @@ import Epidurolisis.Caracteristicas_Producto.Hospital.Hospital;
 import Epidurolisis.Caracteristicas_Producto.TipoProducto;
 import IOInterface.Utils;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+
 import java.time.LocalDate;
 
 public class Producto {
@@ -38,6 +37,7 @@ public class Producto {
             this.lote=20230102;
             this.caducidad=LocalDate.of(2026,01,01);
         }
+        this.tipo=tipo;
         this.unidades = unidades;
         this.precio_producto=hospital.getPrecio()* unidades;
         this.precio_IVA= (float) (0.21* precio_producto);

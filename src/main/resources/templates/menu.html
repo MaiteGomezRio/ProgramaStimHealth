@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <style>
+        /* Estilo del fondo de la página */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra horizontalmente el contenido */
+            justify-content: flex-start; /* Alinea hacia la parte superior */
+            min-height: 100vh; /* Altura mínima del viewport */
+            margin: 0; /* Elimina el margen por defecto */
+            background-color: #add8e6; /* Fondo azul claro */
+            text-align: center; /* Centra el texto */
+        }
+        h1 {
+            color: #003366; /* Color azul oscuro */
+            margin-top: 140px; /* Espacio desde la parte superior */
+            font-size: 28px; /* Tamaño de fuente del título */
+        }
+        .subtitulo {
+            color: #003366; /* Color azul oscuro para el subtítulo */
+            margin-top: 5px; /* Espacio entre el título y subtítulo */
+            font-size: 28px; /* Mismo tamaño de fuente que el título */
+        }
+        ol {
+            padding: 0; /* Elimina el padding por defecto de la lista */
+            list-style-type: decimal; /* Estilo de numeración */
+            margin-top: 30px; /* Espacio adicional entre el título y las opciones */
+        }
+        li {
+            margin: 10px 0; /* Espacio de 10px entre las opciones */
+        }
+        img {
+            max-width: 100%; /* Asegura que el logo no sea más ancho que la pantalla */
+            height: auto; /* Mantiene la proporción del logo */
+            position: absolute; /* Posiciona el logo de manera absoluta */
+            top: 10px; /* Espacio desde la parte superior */
+            left: 10px; /* Espacio desde la parte izquierda */
+            margin: 10px; /* Margen adicional si lo deseas */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img src="C:\Users\maipa\OneDrive - Fundación Universitaria San Pablo CEU\StimHealth\Logo_Stimhealth_horizontal.png" >
+        <h1>Bienvenido al</h1>
+        <h1 class="subtitulo">Programa de Albaranes y Facturas</h1> <!-- título -->
+        <ol>
+            <li><a th:href="@{/generar-albaran}">Generar albarán</a></li>
+            <li><a th:href="@{/generar-factura}">Generar factura</a></li>
+            <li><a th:href="@{/generar-todo}">Generar albarán y factura</a></li>
+            <li><a th:href="@{/modificar-albaran}">Modificar albarán</a></li>
+            <li><a th:href="@{/modificar-factura}">Modificar factura</a></li>
+            <li><a th:href="@{/salir}">Salir</a></li>
+        </ol>
+    </div>
+</body>
+</html>
+

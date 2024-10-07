@@ -583,7 +583,7 @@ public class IOArchivos {
         System.out.println("Qué factura desea modificar. Introduzca su código: ");
         int codigo=Utils.leerEntero();
 
-        System.out.println("Introduzca la fecha en la que fue creado el albarán: ");
+        System.out.println("Introduzca la fecha en la que fue creada la factura: ");
         System.out.println("Año: ");
         int ano=Utils.leerEntero();
         System.out.println("Mes: ");

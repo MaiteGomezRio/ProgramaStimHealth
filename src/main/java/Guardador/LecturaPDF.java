@@ -102,7 +102,7 @@ public class LecturaPDF {
             stripper.setSortByPosition(true);
 
             Rectangle rectNumeroPedido = new Rectangle(144,145,60,10);
-            Rectangle rectFechaEntrega = new Rectangle(93,170,40,20);
+            Rectangle rectFechaEntrega = new Rectangle(91,170,40,20);
             Rectangle rectPrecioProducto = new Rectangle(395,270,40,10);
             Rectangle rectUdsProducto= new Rectangle(360,270,40,10);
 

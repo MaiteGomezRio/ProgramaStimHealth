@@ -122,25 +122,26 @@ public class Utils {
         }
     }
     public static LocalDate leerFecha() {
-        Scanner scanner = new Scanner(System.in);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fecha = null;
+        try (Scanner scanner = new Scanner(System.in)) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate fecha = null;
 
-        while (fecha == null) {
-            System.out.print("Introduce una fecha en formato dd/MM/yyyy: ");
-            String fechaStr = scanner.nextLine();
-            if (fechaStr.isEmpty()) {
-                System.out.println("No has introducido nada. Por favor, intenta de nuevo.");
-                continue;  // Vuelve a pedir la fecha
-            }
+			while (fecha == null) {
+			    System.out.print("Introduce una fecha en formato dd/MM/yyyy: ");
+			    String fechaStr = scanner.nextLine();
+			    if (fechaStr.isEmpty()) {
+			        System.out.println("No has introducido nada. Por favor, intenta de nuevo.");
+			        continue;  // Vuelve a pedir la fecha
+			    }
 
-            try {
-                fecha = LocalDate.parse(fechaStr, formatter);
-            } catch (DateTimeParseException e) {
-                System.out.println("Fecha no válida. Por favor, intenta de nuevo.");
-            }
-        }
-        return fecha;
+			    try {
+			        fecha = LocalDate.parse(fechaStr, formatter);
+			    } catch (DateTimeParseException e) {
+			        System.out.println("Fecha no válida. Por favor, intenta de nuevo.");
+			    }
+			}
+			return fecha;
+		}
     }
 
     public static LocalDate String2LocalDate(String dateString) {
@@ -151,6 +152,18 @@ public class Utils {
         LocalDate date = LocalDate.parse(dateString, formatter);
 
         return date;
+    }
+   
+    public static LocalDate String2LocalDate2(String fechaStr) {
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
+        try {
+            // Convertir el String en LocalDate usando el formato especificado
+            return LocalDate.parse(fechaStr, formatter);
+        } catch (DateTimeParseException e) {
+            // Si el formato es incorrecto, lanzar una excepción con un mensaje personalizado
+            throw new IllegalArgumentException("Formato de fecha inválido. Debe ser día/mes/año.");
+        }
     }
 
 
