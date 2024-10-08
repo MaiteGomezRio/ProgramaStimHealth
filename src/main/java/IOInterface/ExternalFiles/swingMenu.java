@@ -33,7 +33,9 @@ public class swingMenu {
         JMenuItem salir = new JMenuItem("Salir");
 
         // Ruta a la carpeta
-        String rutaAcarpeta = "C:\\Users\\maipa\\OneDrive - Fundación Universitaria San Pablo CEU\\StimHealth\\02 Contabilidad";
+        // TODO Por favor introduzca (copie y pegue) la ruta en la que se encuentra la carpeta con el programa en su ordenador
+        String rutaAcarpeta="C:\\Users\\maria\\OneDrive - STIMHEALTH MEDICAL SL\\StimHealth\\02 Contabilidad";
+        
 
         // Agregar ActionListener a cada opción del menú
         generarAlbaran.addActionListener(new ActionListener() {
