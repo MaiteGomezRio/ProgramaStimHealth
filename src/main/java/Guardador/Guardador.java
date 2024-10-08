@@ -135,7 +135,7 @@ public class Guardador {
         float cx_total=convertirCoordenada(174.81f);//197.7f
         float cy_total=convertirCoordenada(198.0f);
         float total=albaran.getProducto().getPrecio_total();
-        Paragraph p7=new Paragraph(total+" €");
+        Paragraph p7=new Paragraph(Utils.redondear(total)+" €");
         p7.setFontSize(8);
         p7.setFixedPosition(cx_total,cy_total,100f);
         document.add(p7);
@@ -206,7 +206,7 @@ public class Guardador {
         //11.TOTAL-> producto+iva
         float cx_total3=convertirCoordenada(161.0f);//184.3f
         float cy_total3=convertirCoordenada(78.5f);
-        Paragraph p11=new Paragraph(total+" €");
+        Paragraph p11=new Paragraph(Utils.redondear(total)+" €");
         p11.setFontSize(9);
         p11.setFixedPosition(cx_total3,cy_total3,100f);
         document.add(p11);
@@ -664,8 +664,10 @@ public class Guardador {
      * @throws IOException excepción
      */
     public void Factura2PDF_special(Factura factura, String rutaAcarpeta, Hospital hospital, int uds_cervical) throws IOException {
+    	
     	hospital.setTipoArchivo("Facturas");
-        String templateFile =hospital.getPlantilla();
+    	
+        String templateFile=hospital.getPlantilla();
         LocalDate fecha=factura.getFecha();
         Month mes=fecha.getMonth();
         String trimestre=Archivo.obtenerTrimestre(mes);

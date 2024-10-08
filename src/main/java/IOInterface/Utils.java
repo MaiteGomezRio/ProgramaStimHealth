@@ -8,7 +8,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+
 
 
 public class Utils {
@@ -121,29 +121,29 @@ public class Utils {
             return String.valueOf(num_pedido);
         }
     }
-    public static LocalDate leerFecha() {
-        try (Scanner scanner = new Scanner(System.in)) {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			LocalDate fecha = null;
+    
+    public static LocalDate leerFecha() { 
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        LocalDate fechaLeida;
+        String stringLeida;
+        while (true) {
+            try {
+                stringLeida = br.readLine();
+                // Si el usuario presiona Enter sin introducir nada, se vuelve a pedir
 
-			while (fecha == null) {
-			    System.out.print("Introduce una fecha en formato dd/MM/yyyy: ");
-			    String fechaStr = scanner.nextLine();
-			    if (fechaStr.isEmpty()) {
-			        System.out.println("No has introducido nada. Por favor, intenta de nuevo.");
-			        continue;  // Vuelve a pedir la fecha
-			    }
-
-			    try {
-			        fecha = LocalDate.parse(fechaStr, formatter);
-			    } catch (DateTimeParseException e) {
-			        System.out.println("Fecha no válida. Por favor, intenta de nuevo.");
-			    }
-			}
-			return fecha;
-		}
+                fechaLeida=LocalDate.parse(stringLeida,formatter);
+                return fechaLeida;
+            } catch (IOException ioe) {
+                System.out.println("Error al leer de teclado");
+            }
+            catch (NumberFormatException nfe)
+            {
+                System.out.println("Disculpe, debe introducir un numero real");
+            }
+        }
     }
-
+        
     public static LocalDate String2LocalDate(String dateString) {
         // Define el formato de la fecha
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

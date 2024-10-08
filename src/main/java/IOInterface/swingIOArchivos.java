@@ -241,7 +241,7 @@ public class swingIOArchivos {
 	        throw new RuntimeException(e);
 	    }
 
-	    Factura factura = new Factura(a.getNumero_pedido(), codigo, a.getFecha_entrega(), "", a.getProducto(), a.getObservacion());
+	    Factura factura = new Factura(a.getNumero_pedido(), codigo, a.getFecha_entrega(), a.getProducto(), a.getObservacion());
 
 	    // Preguntar si se desea agregar otro tipo de catéter
 	    int cateter_cervical = JOptionPane.showConfirmDialog(null, "¿Desea añadir otro tipo de catéter? (Cervical-18G)", "Añadir catéter", JOptionPane.YES_NO_OPTION);
@@ -278,6 +278,7 @@ public class swingIOArchivos {
 
 	            // Establecer tipo de archivo a "Facturas"
 	            hospital.setTipoArchivo("Facturas");
+	            
 
 	            // Generar la Factura PDF
 	            Guardador guardador2 = new Guardador(factura, hospital);
@@ -301,7 +302,7 @@ public class swingIOArchivos {
 
 	            // Establecer tipo de archivo a "Facturas"
 	            hospital.setTipoArchivo("Facturas");
-	            
+	            hospital.setPlantilla(rutaAcarpeta+"\\PlantillasHospitales\\Facturas\\"+hospital.getAbvPlantilla()+".pdf");
 
 	            // Generar la Factura PDF
 	            Guardador guardador2 = new Guardador(factura, hospital);
@@ -372,7 +373,7 @@ public class swingIOArchivos {
             return null; // Manejar el caso de formato incorrecto
         }
 
-        return new Factura(a.getNumero_pedido(), codigo, a.getFecha_entrega(), a.getNumero_expediente(), a.getProducto(), a.getObservacion());
+        return new Factura(a.getNumero_pedido(), codigo, a.getFecha_entrega(), a.getProducto(), a.getObservacion());
     }
 
 
@@ -596,15 +597,17 @@ public class swingIOArchivos {
 
                 switch (opcion3) {
                     case 0: // Unidades
+                    	int uds_original=producto.getUnidades();
+                    	float precio_original = producto.getPrecio_producto()/uds_original;
                         String udsStr = JOptionPane.showInputDialog("Cuántas unidades del producto desea? ");
                         if (udsStr != null) {
+                        	
                             int uds = Integer.parseInt(udsStr);
                             producto.setUnidades(uds); // cambia las unidades
-
-                            float precio_original = producto.getPrecio_producto();
                             producto.setPrecio_producto(precio_original * uds); // cambia el precio del producto
                             producto.setPrecio_IVA(producto.getPrecio_producto() * 0.21f); // cambio precio con IVA
-                            producto.calcularPrecioTotal(); // cambia precio total
+                            float precio_total_final=precio_original*uds + (precio_original*uds)*0.21f;
+                            producto.setPrecio_total(Utils.redondear(precio_total_final));
 
                             JOptionPane.showMessageDialog(null, "Unidades modificadas. Cantidad: " + uds);
                         }
@@ -613,11 +616,12 @@ public class swingIOArchivos {
                     case 1: // Precio producto
                         String precioNuevoStr = JOptionPane.showInputDialog("Introduzca el nuevo precio del producto: ");
                         if (precioNuevoStr != null) {
-                            int precio_nuevo = Integer.parseInt(precioNuevoStr);
+                            float precio_nuevo = Float.parseFloat(precioNuevoStr);
                             int unidades = producto.getUnidades();
                             producto.setPrecio_producto(precio_nuevo * unidades); // cambia el precio del producto
                             producto.setPrecio_IVA(producto.getPrecio_producto() * 0.21f); // cambio precio con IVA
-                            producto.calcularPrecioTotal(); // cambia precio total
+                            float precio_total_final=precio_nuevo*unidades+ (precio_nuevo*unidades)*0.21f;
+                            producto.setPrecio_total(Utils.redondear(precio_total_final));
 
                             JOptionPane.showMessageDialog(null, "Precio alterado correctamente.");
                         }
@@ -751,15 +755,16 @@ public class swingIOArchivos {
 
                 switch (opcion2) {
                     case 0: // Unidades
+                    	int uds_original=producto.getUnidades();
+                    	float precio_original = producto.getPrecio_producto()/uds_original;
                         String udsStr = JOptionPane.showInputDialog("Cuántas unidades del producto desea? ");
                         if (udsStr != null) {
                             int uds = Integer.parseInt(udsStr);
                             producto.setUnidades(uds); // cambia las unidades
-
-                            float precio_original = producto.getPrecio_producto();
                             producto.setPrecio_producto(precio_original * uds); // cambia el precio del producto
                             producto.setPrecio_IVA(producto.getPrecio_producto() * 0.21f); // cambio precio con IVA
-                            producto.calcularPrecioTotal(); // cambia precio total
+                            float precio_total_final=precio_original*uds + (precio_original*uds)*0.21f;
+                            producto.setPrecio_total(Utils.redondear(precio_total_final));
 
                             JOptionPane.showMessageDialog(null, "Unidades modificadas. Cantidad: " + uds);
                         }
@@ -768,11 +773,12 @@ public class swingIOArchivos {
                     case 1: // Precio producto
                         String precioNuevoStr = JOptionPane.showInputDialog("Introduzca el nuevo precio del producto: ");
                         if (precioNuevoStr != null) {
-                            int precio_nuevo = Integer.parseInt(precioNuevoStr);
+                            float precio_nuevo = Float.parseFloat(precioNuevoStr);
                             int unidades = producto.getUnidades();
                             producto.setPrecio_producto(precio_nuevo * unidades); // cambia el precio del producto
-                            producto.setPrecio_IVA(producto.getPrecio_producto() * 0.21f); // cambio precio con IVA
-                            producto.calcularPrecioTotal(); // cambia precio total
+                            producto.setPrecio_IVA(Utils.redondear(producto.getPrecio_producto() * 0.21f)); // cambio precio con IVA
+                            float precio_total_final=precio_nuevo*unidades+ (precio_nuevo*unidades)*0.21f;
+                            producto.setPrecio_total(Utils.redondear(precio_total_final));
 
                             JOptionPane.showMessageDialog(null, "Precio alterado correctamente.");
                         }

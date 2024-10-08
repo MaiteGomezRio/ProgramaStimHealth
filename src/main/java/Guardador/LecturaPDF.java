@@ -74,10 +74,10 @@ public class LecturaPDF {
 
 
             // Crear el objeto Albaran y asignar los valores
-            float precio=precioProducto/unidades;
-            Producto producto=new Producto(hospital,unidades,precio);
+            
+            Producto producto=new Producto(hospital,unidades,precioProducto);
             albaran = new Albaran(numeroPedido,numeroExpStr,fechaEntrega,producto);
-
+            
 
             // Cerrar el documento PDF
             document.close();
@@ -137,8 +137,8 @@ public class LecturaPDF {
 
 
             // Crear el objeto Factura y asignar los valores
-            float precio=precioProducto/unidades;
-            Producto producto=new Producto(hospital,unidades,precio);
+            
+            Producto producto=new Producto(hospital,unidades,precioProducto);
             factura = new Factura(numeroPedido,fechaEntrega,producto);
 
 

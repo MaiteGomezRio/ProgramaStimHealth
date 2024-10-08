@@ -53,6 +53,8 @@ public class Producto {
     public Producto(Hospital hospital, int unidades, float precio_producto){
 
         this.tipo=TipoProducto.LUMBAR;
+        this.lote=20231002;
+        this.caducidad=LocalDate.of(2026,10,01);
         this.unidades=unidades;
         this.precio_producto=precio_producto;
         this.precio_IVA= Utils.redondear((float) (0.21* precio_producto));
@@ -115,6 +117,9 @@ public class Producto {
 
     public void setPrecio_IVA(float precio_IVA) {
         this.precio_IVA = precio_IVA;
+    }
+    public void setPrecio_total(float precio_total) {
+    	this.precio_total=precio_total;
     }
 
 

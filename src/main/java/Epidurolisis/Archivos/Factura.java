@@ -10,11 +10,11 @@ public class Factura extends Archivo {
     private String codigo_factura;
 
 
-    public Factura(long numero_pedido,int codigo_factura, LocalDate fecha,String num_expediente, Producto producto, String observacion) {
-        super(numero_pedido, fecha, num_expediente, producto, observacion);
+    public Factura(long numero_pedido,int codigo_factura, LocalDate fecha, Producto producto, String observacion) {
+        super(numero_pedido, fecha,"", producto, observacion);
         this.codigo_factura = "FRA"+fecha.getYear()+"-"+codigo_factura;
     }
-    public Factura(long numero_pedido,String codigo_factura, LocalDate fecha,String num_expediente, Producto producto, String observacion) {
+    public Factura(long numero_pedido, String codigo_factura, LocalDate fecha,String num_expediente, Producto producto, String observacion) {
         super(numero_pedido, fecha, num_expediente, producto, observacion);
         this.codigo_factura = codigo_factura;
     }

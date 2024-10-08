@@ -241,8 +241,10 @@ public class IOArchivos {
         } catch (NotValidCodeException e) {
             throw new RuntimeException(e);
         }
+        
+        
 
-        Factura factura=new Factura(a.getNumero_pedido(),codigo,a.getFecha_entrega(),"",a.getProducto(), a.getObservacion());
+        Factura factura=new Factura(a.getNumero_pedido(),codigo,a.getFecha_entrega(),a.getProducto(), a.getObservacion());
 
 
         System.out.println("Desea anadir otro tipo de catéter? (Cervical-18G)");
@@ -266,10 +268,6 @@ public class IOArchivos {
      */
     public static void anadirOtroCateterAambos(Albaran albaran,Factura factura, Hospital hospital, String rutaAcarpeta, int cateter_cervical){
 
-
-
-
-
         if(cateter_cervical==1){//se preguntan los datos del siguiente
 
             try {
@@ -283,6 +281,7 @@ public class IOArchivos {
                 desktop.open(archivo1);
 
                 hospital.setTipoArchivo("Facturas");
+                
                 Guardador guardador2=new Guardador(factura, hospital);
                 guardador2.Factura2PDF_special(factura,rutaAcarpeta,hospital, uds_cervical);
                 System.out.println("Factura generada con éxito.");
@@ -348,7 +347,7 @@ public class IOArchivos {
         System.out.println("Introduzca el codigo de la factura(FRA2024-CÓDIGO): ");
         int codigo=Utils.leerEntero();
 
-        return new Factura(a.getNumero_pedido(),codigo,a.getFecha_entrega(),a.getNumero_expediente(),a.getProducto(), a.getObservacion());
+        return new Factura(a.getNumero_pedido(),codigo,a.getFecha_entrega(),a.getProducto(), a.getObservacion());
     }
 
 
